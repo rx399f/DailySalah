@@ -1,0 +1,246 @@
+<!DOCTYPE html> 
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+	<title>DailySalah</title> 
+	<link rel="stylesheet" href="css/jquery.mobile-1.2.1.min.css" />
+	<script src="js/jquery-1.8.3.min.js"></script>
+	<script src="js/jquery.mobile-1.2.1.min.js"></script>
+	<script>
+	function clearLocalStorage(){
+
+  if(confirm('Do you want to clean the local storage... ')){
+  localStorage.table= getInitialTableString();
+ location.reload();
+}
+}
+function getInitialTableString(){
+  return "<table id=\"myTable\" border=\"1\">"+
+  "<tr>"+
+    "<th>Date</th>"+
+    "<th>Fajr</th>"+
+    "<th>Dhur</th>"+
+    "<th>Asar</th>"+
+    "<th>Maghrib</th>"+
+    "<th>Esha</th>"+
+    "<th>Action</th></tr>"+
+  "</table>";
+}
+function trackCheckBoxStatus(){
+
+  var table = document.getElementById("myTable");
+  var tmpCheckbox = null;
+  //start at 1 to ignore header
+  for(var index=1;index<table.rows.length;index++){
+    // start at 1 to ignore date column
+    for (colIndex=1;colIndex < 6;colIndex++){
+      //alert(table.rows[index].cells[colIndex].innerHTML);
+      tmpCheckbox = table.rows[index].cells[colIndex].firstChild;
+      if(tmpCheckbox.checked){
+        //alert("checkbox selected at index"+index+","+colIndex);
+        document.getElementById("myTable").rows[index].cells[colIndex].innerHTML = getCheckedCheckBoxString();
+      }else{
+        document.getElementById("myTable").rows[index].cells[colIndex].innerHTML = getUncheckedCheckBoxString();
+      }
+    }
+  }
+}
+function store()
+{
+  trackCheckBoxStatus();
+if(typeof(Storage)!=="undefined")
+  {
+    //alert(document.getElementById("myTable").innerHTML);
+    localStorage.table=  document.getElementById("myTable").innerHTML;
+   document.getElementById("result").innerHTML=" Table saved to memory " ;
+  }
+else
+  {
+  document.getElementById("result").innerHTML="Sorry, your browser does not support web storage...";
+  }
+}
+
+
+function loadfromstorage(){
+if(typeof(Storage)!=="undefined")
+  {
+   
+   //document.getElementById("resultTable").innerHTML=localStorage.table;
+   //alert(localStorage.table);
+   if (localStorage.table !== "undefined"){
+    document.getElementById("myTable").innerHTML=localStorage.table;
+   }else{
+    clearLocalStorage();
+   }
+
+  }
+else
+  {
+  document.getElementById("result").innerHTML="Sorry, your browser does not support web storage...";
+  }
+
+}
+function myFunction()
+{
+
+var table = document.getElementById("myTable");
+var row = table.insertRow(1);
+var rowIndex = table.rows.length;
+var cell1 = row.insertCell(0);
+cell1.align = "center";
+
+var cell2 = row.insertCell(1);
+cell2.align = "center";
+
+var cell3 = row.insertCell(2);
+cell3.align = "center";
+
+var cell4 = row.insertCell(3);
+cell4.align = "center";
+
+var cell5 = row.insertCell(4);
+cell5.align = "center";
+
+var cell6 = row.insertCell(5);
+cell6.align = "center";
+
+var cell7 = row.insertCell(6);
+cell7.align = "center";
+cell7.setAttribute('onclick','onRowDelete(this)' );
+
+//alert(table.rows.length);
+if(table.rows.length==2)
+{
+//alert('very first row');
+cell1.innerHTML =  (new Date()).toDateString();
+} else{
+
+var prevDayString =  table.rows[2].cells[0].innerHTML;
+cell1.innerHTML =nextDate(prevDayString).toDateString();
+
+}
+cell2.innerHTML = getUncheckedCheckBoxString();
+cell3.innerHTML = getUncheckedCheckBoxString();
+cell4.innerHTML = getUncheckedCheckBoxString();
+cell5.innerHTML = getUncheckedCheckBoxString();
+cell6.innerHTML = getUncheckedCheckBoxString();
+cell7.innerHTML = "<a href>Delete</a>";
+
+store();
+}
+
+function onRowDelete(cell){
+  
+
+  var table = document.getElementById("myTable");
+  //alert(cell.parentNode.rowIndex);
+  table.deleteRow(cell.parentNode.rowIndex);
+
+  store();
+}
+
+function getUncheckedCheckBoxString(){
+	return "<input type=\"checkbox\" id=\"sala\" onchange=\"store()\"/>";
+}
+
+function getCheckedCheckBoxString(){
+	return "<input type=\"checkbox\" id=\"sala\" checked onchange=\"store()\"/>";
+}
+
+function nextDate(tempDateStr){
+//alert(tempDateStr);
+ var dateTmp = new Date(tempDateStr);
+//alert(dateTmp.getFullYear()+" "+dateTmp.getMonth()+" "+dateTmp.getDate());
+var newDate = new Date(dateTmp.getFullYear(), dateTmp.getMonth(), dateTmp.getDate()+1);
+//alert(newDate);
+return newDate;
+}
+
+</script>
+
+
+<style>
+  table,th,td
+  {
+  border:1px solid #FFF380;
+  }
+
+</style>
+
+<!-- <style type="text/css"> 
+  input[type=checkbox]
+{
+ /* Double-sized Checkboxes */
+ -ms-transform: scale(2); /* IE */
+ -moz-transform: scale(2); /* FF */
+ -webkit-transform: scale(2); /* Safari and Chrome */
+ -o-transform: scale(2); /* Opera */
+ padding: 10px;
+}
+
+</style>
+-->
+
+</head> 
+	<body onload="loadfromstorage()" > 
+		
+	 <div data-role="page" data-theme="a">
+	 	<div data-role="header" data-theme="a">
+		<p align="center">
+			Daily Salah 
+		</p>
+		<p "font-size:small">Hope this tool is useful to track Daily Salah and not miss any salah in lifetime </p>
+		<!-- <marquee style="font-size:small">	
+			May Allah(s.w.t) accept from you and me - Ameen </marquee> -->
+		</div>
+	 	<div id="details" align="center" data-role="content" >
+			
+    		 <div id="result">
+
+			</div>
+
+				<table id="resetTable" border="1">
+				
+				</table>
+				
+				<!--<button onclick="myFunction()">Add Day</button>
+				
+        <button onclick="clearLocalStorage()">Clear</button>-->
+				
+		<fieldset class="ui-grid-a">
+          <div class="ui-block-a">
+            <button type="submit" data-theme="e" id="btncancel" onclick="myFunction()">Add Day</button>
+          </div>
+          <div class="ui-block-b">
+            <button type="submit" data-theme="e" id="btnsearch" onclick="clearLocalStorage()">Clear</button>
+          </div>     
+        </fieldset> 
+        
+   		<table id="myTable" >
+			<tr>
+			<th>Date</th>
+			<th>Fajr</th>
+			<th>Dhur</th>
+			<th>Asar</th>
+			<th>Maghrib</th>
+			<th>Esha</th>
+    		<th>Action</th>
+			</tr>
+			
+		</table>
+
+    	
+				
+		
+    		To find out the number of Rakat for Sunnat, Farz and Nafil for each Salat<a href="SalahDtls.html" > click here...</a>
+    		</div>
+    		 <div data-role="footer" data-theme="a">
+		 	(c) Copyright 2013 M Y & Co. All Rights Reserved.  
+		 	</div>
+		</div>
+		
+	</body> 
+	
+</html>

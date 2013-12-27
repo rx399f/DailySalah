@@ -1,0 +1,89 @@
+<!DOCTYPE html> 
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+	<title>Multi-page template</title> 
+	<link rel="stylesheet" href="css/jquery.mobile-1.2.1.min.css" />
+	<script src="js/jquery-1.8.3.min.js"></script>
+	<script src="js/jquery.mobile-1.2.1.min.js"></script>
+</head> 
+	<body > 
+		
+	 <div data-role="page" data-theme="b">
+	 	<div data-role="header" data-theme="e">
+		<p align="center">
+			Daily Salah 
+		</p>
+		<p "font-size:small">Hope this tool is useful to track Daily Salah to completion and not to pile up Salah  </p>
+		<marquee style="font-size:small">	
+			May Allah(s.w.t) accept from you and me - Ameen </marquee> </div>
+	 	<div id="details" align="center" data-role="content" >
+			
+    		 
+    		 <table data-role="table" id="sala-table" data-mode="columntoggle" 
+    		 >
+    			<thead>
+	    			<tr style="border: 1;background:grey">
+	    				<th width="40%">Salat</th>
+	    				<th width="12%">Sunnat</th>
+	    				<th width="12%">Farz</th>
+	    				<th width="12%">Sunnat</th>
+	    				<th width="12%">Witr</th>
+	    				<th width="12%">Nafi</th>
+	    			</tr>
+    			</thead>
+    			<tbody align="center" >
+    			<tr  >
+    				<th width="40%" style="border: 1;background: grey">Fajr</th>
+    				<td width="12%" style="background:orange">2</td>
+    				<td width="12%">2</td>
+    				<td width="12%">-</td>
+    				<td width="12%">-</td>
+    				<td width="12%">-</td>
+    			</tr>
+    			<tr >
+    				<th width="40%" style="border: 1;background: grey">Duhar</th>
+    				<td width="12%" style="background:orange">4</td>
+    				<td width="12%">4</td>
+    				<td width="12%" style="background:orange">2</td>
+    				<td width="12%">-</td>
+    				<td width="12%">2</td>
+    			</tr>
+    			<tr >
+    				<th width="40%" style="border: 1;background: grey">Asr</th>
+    				<td width="12%">4</td>
+    				<td width="12%">4</td>
+    				<td width="12%">-</td>
+    				<td width="12%">-</td>
+    				<td width="12%">-</td>
+    			</tr>
+    			<tr>
+    				<th width="40%" style="border: 1;background: grey">Magrib</th>
+    				<td width="12%">-</td>
+    				<td width="12%">3</td>
+    				<td width="12%"style="background:orange">2</td>
+    				<td width="12%">-</td>
+    				<td width="12%">2</td>
+    			</tr>
+    			<tr>
+    				<th width="40%" style="border: 1;background: grey">Isha</th>
+    				<td width="12%" style="background:orange">4</td>
+    				<td width="12%">4</td>
+    				<td width="12%" style="background:orange">2</td>
+    				<td width="12%">3</td>
+    				<td width="12%">2</td>
+    			</tr>
+    			</tbody>
+    		</table>
+    		<button onclick="javascript:window.history.back()">Back</button>
+    		</div>
+    		 <div data-role="footer" data-theme="e">
+		 	(c) Copyright 2013 EnCO2S. All Rights Reserved.  
+		 	</div>
+		</div>
+		
+	</body> 
+	
+</html>

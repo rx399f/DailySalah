@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <title>PhoneGap</title>
+  <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+   <script type="text/javascript" charset="utf-8">
+   document.addEventListener("deviceready", onDeviceReady, false);
+   
+   function onDeviceReady() {
+       showAlert();
+    }
+   
+    function showAlert() {
+        navigator.notification.alert(
+            'You are the winner!',  // message
+            alertDismissed,         // callback
+            'Game Over',            // title
+            'Done'                  // buttonName
+        );
+    }
+    function alertDismissed(){
+    // to do
+    }
+    </script>
+ </head>
+ <body>
+    <h1>Hello PhoneGap</h1>
+ </body>
+</html>
